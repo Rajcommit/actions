@@ -7,7 +7,7 @@ runs:
   steps:
     - name: Cache dependencies
       id: cache
-      uses: actions/cache@v3  ## we can use actions which are precreated here
+      uses: actions/cache@v4 ## we can use actions which are precreated here || https://github.blog/changelog/2024-04-16-deprecation-notice-v3-of-the-artifact-actions/
       with:
         path: node_modules
         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
