@@ -80,3 +80,10 @@ jobs:
         run: ls
       - name: Deploy site
         run: echo "Deploying..."
+  Information:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Run customaction
+        uses: ./.github/deploy-s3-javascript ## relevent to root folder of the repo
+        # or if you want to use it from an existing repo, you can use the following
+        ##uses: accountname/reponame  (format incase of using it from exsisting repo)

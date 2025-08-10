@@ -1,0 +1,7 @@
+##https://docs.github.com/en/actions/tutorials/create-actions/create-a-javascript-action
+##action-toolkit:  https://github.com/actions/toolkit
+name: 'Deploy to AWS s3'
+description: 'Deploys a static website to AWS S3'
+runs:
+  using: 'node16'
+  main: 'main.js'  ## main file for the action, if the min.js file is in the root folder, then we can use main.js, if it is in a subfolder, then we can use subfolder/main.js
