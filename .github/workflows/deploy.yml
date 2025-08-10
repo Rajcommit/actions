@@ -83,6 +83,8 @@ jobs:
   Information:
     runs-on: ubuntu-latest
     steps: 
+      - name: Get code
+        uses: actions/checkout@v4
       - name: Run customaction
         uses: ./.github/deploy-s3-javascript ## relevent to root folder of the repo
         # or if you want to use it from an existing repo, you can use the following
