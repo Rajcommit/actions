@@ -8,6 +8,10 @@ inputs:
     description: "Enabling caching for dependdencies"
     required: false ## the use of 'required' is to make it optional
     default: "true" ## default value is true, if not provided by user
+outputs:
+  cache-hit:
+    description: "Cache hit status"
+    value: ${{ steps.install.outputs.cache }} ## this will be used to check if cache is hit or not
 runs:
   using: "composite"
   steps:
@@ -20,6 +24,9 @@ runs:
         path: node_modules
         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
     - name: Install dependencies
+      id: install
       if: steps.cache.outputs.cache-hit != 'true'  || inputs.caching == 'true' ## if cache is not hit, then install dependencies
-      run: npm ci
+      run: | 
+           npm ci
+           echo "cache='${{ input.caching }}'" >> $GITHUB_OUTPUTS ## this will be used to check if cache is hit or not
       shell: bash

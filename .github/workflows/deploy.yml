@@ -15,11 +15,14 @@ jobs:
       - name: Get code
         uses: actions/checkout@v4
       - name: Load and cache dependencies
+        id: cache-deps
         uses: ./.github/actions/cached-deps ## relevent to root folder of the repo
         # or if you want to use it from an existing repo, you can use the following
         ##uses: accountname/reponame  (format incase of using it from exsisting repo)
         with:
-          caching: false ## if you want to enable caching, you can set it to true
+          caching: false ## if you want to disable caching, you can set it to true
+      - name: Output inforamtion
+        run: echo "Cache use status ${{ steps.cache-deps.outputs.cache }}"
       - name: Debug files in current directory
         run: ls -la
       - name: Lint code
