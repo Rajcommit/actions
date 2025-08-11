@@ -79,13 +79,12 @@ jobs:
       - name: Output contents
         run: ls
       - name: Deploy site
-        uses: ./.github/actions/deploy-s3-javascript
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        uses: ./.github/deploy-s3-javascript
         with:
           bucket: my-s3-bucket-name
           region: us-east-1
+          accessKeyId: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secretAccessKey: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           sourceDir: ./dist
   Information:
     runs-on: ubuntu-latest
@@ -94,5 +93,11 @@ jobs:
         uses: actions/checkout@v4
       - name: Run customaction
         uses: ./.github/deploy-s3-javascript ## relevent to root folder of the repo
+        with:
+          bucket: demo-bucket
+          region: us-east-1
+          accessKeyId: FAKE
+          secretAccessKey: FAKE
+          sourceDir: ./dist
         # or if you want to use it from an existing repo, you can use the following
         ##uses: accountname/reponame  (format incase of using it from exsisting repo)
