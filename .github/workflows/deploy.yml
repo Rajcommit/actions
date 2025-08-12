@@ -86,7 +86,7 @@ jobs:
         ## uses: accountname/reponame  (format incase of using it from exsisting repo)
         ## or if you want to use it from a local folder, you can use the following
         ## uses: ./.github/deploy-s3-javascript  (format incase of using it from local folder)  ## relevent to root folder of the repo
-        uses: ./.github/deploy-s3-javascript
+        uses: ./.github/deploy-s3-docker ## relevent to root folder of the repo
         env: ## Can be used only by this step
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -94,16 +94,26 @@ jobs:
           bucket: my-s3-bucket-name
           region: us-east-1
           sourceDir: ./dist
-  Information:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get code
-        uses: actions/checkout@v4
-      - name: Run customaction
-        uses: ./.github/deploy-s3-javascript ## relevent to root folder of the repo
-        # or if you want to use it from an existing repo, you can use the following
-        ##uses: accountname/reponame  (format incase of using it from exsisting repo)
       - name: Output website URL
         run: |
-          echo "Website URL: ${{ steps.deploy.outputs.websiteUrl }}"  # Output the website URL from the deploy step
-          echo "Website URL: ${{ steps.deploy.outputs.websiteUrl }}" >> "$GITHUB_OUTPUT"  # Set the output variable for use in subsequent steps or workflows
+          echo "Website URL: ${{ steps.deploy.outputs.website-url }}"  # Output the website URL from the deploy step
+          echo "Website URL: ${{ steps.deploy.outputs.website-url }}" >> "$GITHUB_OUTPUT"  # Set the output variable for use in subsequent steps or workflows
+  #Information:
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - name: Get code
+  #      uses: actions/checkout@v4
+  #    - name: Run customaction
+  #      uses: ./.github/deploy-s3-docker ## relevent to root folder of the repo
+  #      # or if you want to use it from an existing repo, you can use the following
+  #      ##uses: accountname/reponame  (format incase of using it from exsisting repo)
+  #      with:
+  #        bucket: my-s3-bucket-name
+  #        region: us-east-1
+  #        accessKeyId: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #        secretAccessKey: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #        sourceDir: ./dist
+  #    - name: Output website URL
+  #      run: |
+  #        echo "Website URL: ${{ steps.deploy.outputs.websiteUrl }}"  # Output the website URL from the deploy step
+  #        echo "Website URL: ${{ steps.deploy.outputs.websiteUrl }}" >> "$GITHUB_OUTPUT"  # Set the output variable for use in subsequent steps or workflows

@@ -1,0 +1,26 @@
+name: 'Deploy to AWS s3 using python'
+description: 'Deploys a static website to AWS S3'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'  ## Dockerfile for the action, if the Dockerfile is in the root folder, then we can use Dockerfile, if it is in a subfolder, then we can use subfolder/Dockerfile
+inputs:
+  bucket:
+    description: 'S3 bucket name'
+    required: true
+  region:
+    description: 'AWS region'
+    required: false
+    default: 'us-east-1'  ## default region, if not provided by user
+  accessKeyId:
+    description: 'AWS Access Key ID'
+    required: true
+  secretAccessKey:
+    description: 'AWS Secret Access Key'
+    required: true
+  sourceDir:
+    description: 'Directory to deploy'
+    required: true
+    ##default: './dist'  ## default directory to deploy, if not provided by user  
+outputs:
+  website-url:
+    description: 'URL of the deployed website'
