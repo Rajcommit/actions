@@ -14,9 +14,11 @@ function run() {
 
 // 2) Upload files to S3
 const s3Uri = `s3://${bucket}`;  // Construct the S3 URI using the bucket name and  default region
-const awsCliCommand = `aws s3 sync ${sourceDir} ${s3Uri} --region ${region} --delete`;  // Sync files from sourceDir to S3 bucket and delete files in the bucket that are not present in sourceDir
-
-    core.notice('Starting deployment to S3...');
+exec.exec(`aws s3 sync ${sourceDir} ${s3Uri} --region ${region} --delete`);  // Sync files from sourceDir to S3 bucket and delete files in the bucket that are not present in sourceDir
+const websiteUrl = `https://${bucket}.s3-website-${region}.amazonaws.com`;  // Construct the website URL using the bucket name and region
+core.setOutput('websiteUrl', websiteUrl);  // Set the output variable 'websiteUrl' to the constructed URL, which can be used in subsequent steps or workflows
+// 3) Log the deployment status    
+core.notice('Starting deployment to S3...');
 }
 
 run();

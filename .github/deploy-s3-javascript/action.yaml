@@ -20,6 +20,10 @@ inputs:
     description: 'Directory to deploy'
     required: true
     ##default: './dist'  ## default directory to deploy, if not provided by user
+outputs:
+  websiteUrl:
+    description: 'URL of the deployed website'
+
 runs:
   using: 'node16'
   main: 'main.js'  ## main file for the action, if the min.js file is in the root folder, then we can use main.js, if it is in a subfolder, then we can use subfolder/main.js
